@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<map proto="1.3.3">
+	<name>Skeleton vs Wither</name>
+	<version>1.0.1</version>
+	<objective>Grab the wool on the enemy side and place it on your victory monument.</objective>
+	<authors>
+		<author>_Pe</author>
+	</authors>
+	<teams>
+		<team color="dark_aqua" max="24">Skeletons</team>
+		<team color="dark_red" max="24">Withers</team>
+	</teams>
+<!-- kit -->
+	<kits>
+		<kit name="spawn">
+			<item slot="0">IRON_SWORD</item>
+			<item slot="1">bow</item>
+			<item slot="2">iron_pickaxe</item>
+			<item slot="3">stone_axe</item>
+			<item slot="5">golden_apple</item>
+			<item slot="6" name="いつ食べるか?今でしょ!" amount="64" bind="true">bread</item>
+			<item slot="8" amount="64">log</item>
+			<item slot="9" bind="true" amount="64">arrow</item>
+		</kit>
+		<kit name="dark_aqua" parents="spawn">
+			<helmet bind="true" locked="ture">SKULL_ITEM</helmet>
+			<chestplate color="89AFD9" damage="-3000" bind="true">LEATHER_CHESTPLATE</chestplate>
+			<leggings color="89AFD9" damage="-3000" bind="true">LEATHER_LEGGINGS</leggings>
+			<boots color="89AFD9" damage="-3000" bind="true">LEATHER_BOOTS</boots>
+			<item slot="7" amount="64" damage="9">STAINED_GLASS</item>
+		</kit>
+		<kit name="dark_red" parents="spawn">
+			<helmet bind="true" damage="1" locked="ture">SKULL_ITEM</helmet>
+			<chestplate color="592626" damage="-3000" bind="true">LEATHER_CHESTPLATE</chestplate>
+			<leggings color="592626" damage="-3000" bind="true">LEATHER_LEGGINGS</leggings>
+			<boots color="592626" damage="-3000" bind="true">LEATHER_BOOTS</boots>
+			<item slot="7" amount="64" damage="14">STAINED_GLASS</item>
+		</kit>
+	</kits>
+	<spawns>
+		<spawn team="dark_aqua" yaw="90" kit="dark_aqua">
+			<cuboid max="-80,23,1" min="-79,23,0"/>
+		</spawn>
+		<spawn team="dark_red" yaw="-90" kit="dark_red">
+			<cuboid max="-275,23,0" min="-276,23,1"/>
+		</spawn>
+		<default yaw="0">
+			<cuboid max="-177,53,1" min="-178,53,0"/>
+		</default>
+	</spawns>
+	<itemremove>
+		<item>IRON_SWORD</item>
+		<item>bow</item>
+		<item>arrow</item>
+		<item>iron_pickaxe</item>
+		<item>stone_axe</item>
+		<item>golden_apple</item>
+		<item>bread</item>
+		<item>log</item>
+		<item>exp_bottle</item>
+		<item>SKULL_ITEM</item>
+		<item>STAINED_GLASS</item>
+		<item>LEATHER_CHESTPLATE</item>
+		<item>LEATHER_BOOTS</item>
+		<item>LEATHER_LEGGINGS</item>
+		<item>iron_helmet</item>
+		<item>IRON_BOOTS</item>
+		<item>iron_chestplate</item>
+		<item>iron_leggings</item>
+		<item>potion</item>
+		<item>bucket</item>
+		<item>diamond_chestplate</item>
+		<item>diamond_boots</item>
+		<item>water_bucket</item>
+	</itemremove>
+	<filters>
+		<filter name="only-dark_aqua" parents="deny-players deny-world">
+			<allow>
+				<team>dark_aqua</team>
+			</allow>
+		</filter>
+		<filter name="only-dark_red" parents="deny-players deny-world">
+			<allow>
+				<team>dark_red</team>
+			</allow>
+		</filter>
+		<filter name="only-iron" parents="deny-blocks">
+			<allow>
+				<block>iron_block</block>
+			</allow>
+		</filter>
+		<filter name="allow-breaks">
+			<block>iron block</block>
+		</filter>
+		<filter name="deny-chest">
+			<deny>
+				<block>chest</block>
+			</deny>
+		</filter>
+		<filter name="wools">
+			<block>wool</block>
+		</filter>
+		<filter name="no-void">
+			<not>
+				<void/>
+			</not>
+		</filter>
+	</filters>
+	<regions>
+		<union name="dark_aqua-base">
+			<rectangle min="-75,10" max="-94,-9"/>
+			<rectangle min="-95,-8" max="-96,9"/>
+			<rectangle min="-97,-7" max="-97,8"/>
+			<rectangle min="-98,7" max="-98,-6"/>
+			<rectangle min="-99,-5" max="-99,6"/>
+			<rectangle min="-100,-3" max="-100,4"/>
+		</union>
+		<union name="dark_red-base">
+			<rectangle min="-280,10" max="-261,-9"/>
+			<rectangle min="-260,-8" max="-259,9"/>
+			<rectangle min="-258,8" max="-258,-7"/>
+			<rectangle min="-257,-6" max="-257,7"/>
+			<rectangle min="-256,6" max="-256,-5"/>
+			<rectangle min="-255,-3" max="-255,4"/>
+		</union>
+		<union name="base">
+			<region name="dark_aqua-base"/>
+			<region name="dark_red-base"/>
+		</union>
+		<complement name="bases">
+			<region name="base"/>
+			<block location="-90,24,2"/>
+			<block location="-90,24,-1"/>
+			<block location="-265,24,-1"/>
+			<block location="-265,24,2"/>
+		</complement>
+		<union name="dark_aqua-wool-rooms">
+			<!--    Blue Wool Room    -->
+			<rectangle min="-37,-46" max="-12,-23"/>
+			<!--    Green Wool Room    -->
+			<rectangle min="-37,24" max="-12,47"/>
+		</union>
+		<union name="dark_red-wool-rooms">
+			<!--    Orange Wool Room    -->
+			<rectangle min="-318,47" max="-343,24"/>
+			<!--    Purple Wool Room    -->
+			<rectangle min="-318,-23" max="-343,-46"/>
+		</union>
+		<union name="head-monument">
+			<cuboid min="-27,18,-38" max="-20,25,-31"/>
+			<cuboid min="-27,18,32" max="-20,25,39"/>
+			<cuboid min="-328,18,39" max="-335,25,32"/>
+			<cuboid min="-328,18,-31" max="-335,25,-38"/>
+		</union> 
+		<apply block-break="only-iron" block-place="deny-blocks" message="You can't modify base.">
+			<region name="bases"/>
+		</apply>
+		<apply block-break="allow-breaks" block-place="deny-place" message="You can't modify this area.">
+			<region name="bases"/>
+		</apply>
+		<apply enter="only-dark_aqua" message="You can't enter enemy base.">
+			<region name="dark_aqua-base"/>
+		</apply>
+		<apply enter="only-dark_red" message="You can't enter enemy base.">
+			<region name="dark_red-base"/>
+		</apply>
+		<apply block="deny-chest" message="You can't modify wool room chest.">
+			<region name="dark_aqua-wool-rooms"/>
+			<region name="dark_red-wool-rooms"/>
+		</apply>
+		<apply block="deny-all" message="Don't hurt me!">
+			<region name="head-monument"/>
+		</apply>
+		<apply enter="only-dark_red" message="You can't enter your own wool room.">
+			<region name="dark_aqua-wool-rooms"/>
+		</apply>
+		<apply block="only-dark_red" use="only-dark_red" message="You can't modify your own wool room.">
+			<region name="dark_aqua-wool-rooms"/>
+		</apply>
+		<apply enter="only-dark_aqua" message="You can't enter your own wool room.">
+			<region name="dark_red-wool-rooms"/>
+		</apply>
+		<apply block="only-dark_aqua" use="only-dark_aqua" message="You can't modify your own wool room.">
+			<region name="dark_red-wool-rooms"/>
+		</apply>
+		<apply block="no-void" message="You can't modify void.">
+			<rectangle min="-oo,-oo" max="oo,oo"/>
+		</apply>
+	</regions>
+	<maxbuildheight>45</maxbuildheight>
+	<killreward>
+		<item amount="1">golden apple</item>
+		<item name="Let's name your sword!">exp_bottle</item>
+	</killreward>
+	<wools>
+		<wool team="dark_aqua" color="orange">
+			<block location="-90,24,2"/>
+		</wool>
+		<wool team="dark_aqua" color="purple">
+			<block location="-90,24,-1"/>
+		</wool>
+		<wool team="dark_red" color="blue">
+			<block location="-265,24,-1"/>
+		</wool>
+		<wool team="dark_red" color="green">
+			<block location="-265,24,2"/>
+		</wool>
+	</wools>
+<!-- ブロック復元 -->
+	<blockdrops>
+		<rule>
+			<filter>
+				<block>EMERALD_BLOCK</block>
+				<block>gravel</block>
+			</filter>
+		</rule>
+		<rule>
+			<region>
+				<region name="base"/>
+			</region>
+			<filter>
+				<block>iron block</block>
+			</filter>
+			<drops>
+				<item>iron block</item>
+			</drops>
+			<wrongtool>true</wrongtool>
+			<direct>true</direct>
+			<replacement>iron block</replacement>
+			<restore-time>0</restore-time>
+		</rule>
+		<rule>
+			<region>
+				<cuboid min="-24,12,-35" max="-23,12,-34"/>
+			</region>
+			<filter>
+				<block>wool</block>
+			</filter>
+			<drops>
+				<item amount="1" damage="11">wool</item>
+			</drops>
+			<replacement>wool:11</replacement>
+			<direct>true</direct>
+			<wrongtool>true</wrongtool>
+			<restore-time>0</restore-time>
+		</rule>
+		<rule>
+			<region>
+				<cuboid min="-24,12,35" max="-23,12,36"/>
+			</region>
+			<filter>
+				<block>wool</block>
+			</filter>
+			<drops>
+				<item amount="1" damage="13">wool</item>
+			</drops>
+			<replacement>wool:13</replacement>
+			<direct>true</direct>
+			<wrongtool>true</wrongtool>
+			<restore-time>0</restore-time>
+		</rule>
+		<rule>
+			<region>
+				<cuboid min="-331,12,36" max="-332,12,35"/>
+			</region>
+			<filter>
+				<block>wool</block>
+			</filter>
+			<drops>
+				<item amount="1" damage="1">wool</item>
+			</drops>
+			<replacement>wool:1</replacement>
+			<direct>true</direct>
+			<wrongtool>true</wrongtool>
+			<restore-time>0</restore-time>
+		</rule>
+		<rule>
+			<region>
+				<cuboid min="-331,12,-34" max="-332,12,-35"/>
+			</region>
+			<filter>
+				<block>wool</block>
+			</filter>
+			<drops>
+				<item amount="1" damage="10">wool</item>
+			</drops>
+			<replacement>wool:10</replacement>
+			<direct>true</direct>
+			<wrongtool>true</wrongtool>
+			<restore-time>0</restore-time>
+		</rule>
+	</blockdrops>
+	<locales>
+		<locale lang="ja_JP">
+			<string name="Grab the wool on the enemy side and place it on your victory monument." value="敵陣の羊毛部屋から羊毛を奪取し、自陣の台座に設置。"/>
+			<string name="You can't modify base." value="拠点は編集できません。"/>
+			<string name="You can't modify void." value="範囲外は編集できません。"/>
+			<string name="You can't enter enemy base." value="敵拠点には侵入できません。"/>
+			<string name="You can't enter your own wool room." value="自陣羊毛部屋には侵入できません。"/>
+			<string name="You can't modify your own wool room." value="自陣羊毛部屋は編集できません。"/>
+			<string name="You can't modify wool room chest." value="羊毛部屋のチェストは編集できません。"/>
+			<string name="Don't hurt me!" value="私を傷つけるな!"/>
+		</locale>
+	</locales>
+<!-- チュートリアル -->
+<include src="tutorial.xml"/>
+	<tutorial>
+		<stage title="Capture the Wool(CTW)">
+			<message>
+				<line>This map is a `a`lCapture the Wool`r(CTW) map.</line>
+				<line>The objective is to grab the wool on the other team's side and return it to your base.</line>
+			</message>
+			<message lang="ja_JP">
+				<line>このマップは`a`lCapture the Wool`r(CTW)マップです。</line>
+				<line>敵チームの羊毛部屋から羊毛を奪取して拠点に持ち帰る事が目標になります。</line>
+			</message>
+		</stage>
+		<stage title="Skeletons Wool rooms">
+		<title lang="ja_JP">Skeletonsの羊毛ルーム</title>
+			<message>
+				<line>These are `bSkeletons`r wool rooms housing `9Blue `rand `2Green`r.</line>
+				<line>`cWithers `rhas `6Orange `rand `5Purple `rwools.</line>
+				<line>Skeletons should defend these rooms against Withers invaders who are trying to steal the wool and make it back alive.</line>
+			</message>
+			<message lang="ja_JP">
+				<line>`bSkeletons `rは`9Blue`rと`2Green`rの羊毛ルームがあります。</line>
+				<line>`cWithers `rには`6Orange`rと`5Purple`rの羊毛ルームがあります。</line>
+				<line>Skeletonsは羊毛を切り取ろうとするWithersの攻撃からこの羊毛ルームを防衛する必要があります。</line>
+			</message>
+			<teleport>
+				<point yaw="-90">-54,18,-33</point>
+			</teleport>
+		</stage>
+		<stage title="Withers Base">
+		<title lang="ja_JP">Withersの拠点</title>
+			<message>
+				<line>Here is the `cWithers `rvictory monument and spawn where the captured wool must be placed.</line>
+				<line>Both wool must be placed to win.</line>
+			</message>
+			<message lang="ja_JP">
+				<line>ここは`cWithers`rの台座とスポーンポイントです。</line>
+				<line>勝利するためには両方の羊毛を設置しなければなりません。</line>
+			</message>
+			<teleport>
+				<point yaw="50">-263,24,-3</point>
+			</teleport>
+		</stage>
+	</tutorial>
+</map>
